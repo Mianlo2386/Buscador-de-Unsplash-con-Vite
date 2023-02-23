@@ -1,0 +1,55 @@
+.CajaDeBusqueda {
+  width: 50%;
+  margin: auto;
+  padding: 25px;
+  margin: auto;
+  color: black;
+  display: flex;
+
+}
+.CajaDeBusqueda .CajaDeBusqueda--input {
+  width: 90%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: 'Roboto Mono', monospace; 
+  font-size: 110%;
+}
+.CajaDeBusqueda .CajaDeBusqueda--btn {
+  width: 10%;
+  color: grey;
+  padding: 10px ;
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 110%;
+} 
+.contenido {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  
+} 
+.contenido--fila {
+  gap: 1rem;
+}
+.contenido .contenido--fila img {
+  width: 350px;
+  height: 350px;
+  /* max-width: 100%; */
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center; 
+  gap: 20px;
+  transition: all 0.5s ease-in-out;
+}
+.info {
+  width: 85%;
+  font-family: 'Roboto Mono', monospace;
+}
+.image-hover {
+  transform: scale(1.1);
+}
