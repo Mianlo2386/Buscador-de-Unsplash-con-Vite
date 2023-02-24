@@ -11,13 +11,14 @@ function App() {
   
   const [valor,setValor] = useState('');
   const [resultados,setResultados] = useState([]);
+  /* const [resultadosTags,setResultadosTags] = useState([]); */
   const [resultadosR,setResultadosR] = useState([]);
   const [page,setPage] = useState(1);
   const [variable,setVariable] = useState(true);
 
 
 //const ACCESS_KEY = '65XiRXJUKphgomkJhahmT6rdhCdlm9_ALwKe-3ijO1w'
-  const ACCESS_KEY2 = 'fMk7uhDPagS3fp4IZ4y-6oh5qRzDcExDsFun33mJo-s'
+const ACCESS_KEY = 'fMk7uhDPagS3fp4IZ4y-6oh5qRzDcExDsFun33mJo-s'
   /* const URL1 = `https://api.unsplash.com/photos/random?count=6&client_id=${ACCESS_KEY2}&page=1`
   const URL2 = `https://api.unsplash.com/search/photos?client_id=${ACCESS_KEY2}&query=${valor}&per_page=6&page=${page}` */
 
@@ -25,18 +26,29 @@ function App() {
 /* funcion para busqueda de imagenes */
 const buscarResultados= async ()=>{
   setVariable(false)
-  let URL= `https://api.unsplash.com/search/photos/?client_id=${ACCESS_KEY2}&query=${valor}&per_page=30&`; 
+  let URL= `https://api.unsplash.com/search/photos/?client_id=${ACCESS_KEY}&query=${valor}&per_page=30&`; 
  
   const response= await fetch(URL);
   const data= await response.json();
   setResultados(data.results);
   console.log(data.results);  
 }
+/* const busquedaTags= async (tag)=>{
+  setVariable(false)
+  let URL= `https://api.unsplash.com/search/photos/?client_id=${ACCESS_KEY}&query=${tag}&per_page=30&`; 
+ 
+  const response= await fetch(URL);
+  const data= await response.json();
+   setResultados(data.results); 
+  /* setResultadosTags(data.results); */
+  /* console.log(data.results); 
+  console.log(data.results.tags); 
+}  */
 /* funcion para buscar si cambia de pagina */
 useEffect(()=>{
   const buscarResultados= async ()=>{
     if(valor==='' || valor===null){
-    let URL= `https://api.unsplash.com/search/photos/?client_id=${ACCESS_KEY2}&query=${valor}&per_page=30&page=${page}`;    
+    let URL= `https://api.unsplash.com/search/photos/?client_id=${ACCESS_KEY}&query=${valor}&per_page=30&page=${page}`;    
    
     const response= await fetch(URL);
     const data= await response.json();
@@ -53,7 +65,7 @@ useEffect(()=>{
   if(valor==='' || valor===null){
       const buscarRandom=async()=>{
         setVariable(true)
-        let urlRandom=`https://api.unsplash.com/photos/random?count=30&client_id=${ACCESS_KEY2}`;
+        let urlRandom=`https://api.unsplash.com/photos/random?count=30&client_id=${ACCESS_KEY}`;
     
          const response= await fetch(urlRandom);
          const data= await response.json();
@@ -66,10 +78,10 @@ useEffect(()=>{
 },[valor]) 
 
 /* funcion para concatenar paginas del infinte scroll */
-useEffect(()=>{
+ useEffect(()=>{
   if(valor==='' || valor===null){
   const buscarRandom=async()=>{
-    let urlRandom=`https://api.unsplash.com/photos/random?count=30&client_id=${ACCESS_KEY2}&page=${page}`;
+    let urlRandom=`https://api.unsplash.com/photos/random?count=30&client_id=${ACCESS_KEY}&page=${page}`;
 
     const response= await fetch(urlRandom);
     const data= await response.json();
@@ -78,7 +90,7 @@ useEffect(()=>{
   buscarRandom();
 }
 
-},[valor,page])
+},[valor,page]) 
 
 return (
     <> 
@@ -122,11 +134,15 @@ return (
               }}
               onMouseOut={(e) => {
                 e.currentTarget.classList.remove("image-hover");
-              }}/>
+              }}
+              onClick={() => window.open(elemento.urls.regular, '_blank')}/>
               <div className='info'>
                  <p>Ubicación: {elemento.user.location} </p>
                  <p>Cámara: </p>
-                 <p>Tags:  {elemento.tags.map((tag, index) => <span key={index}>{tag.title} </span>)}  </p>
+
+                 <a className='tags' onClick={()=> busquedaTags(elemento.tags[0].title)} href=''>{elemento.tags[0].title} </a> 
+                 <a className='tags' onClick={()=> busquedaTags(elemento.tags[1].title)} href=''>{elemento.tags[1].title} </a>  
+                 <a className='tags' onClick={()=> busquedaTags(elemento.tags[2].title)} href=''>{elemento.tags[2].title} </a>  
               </div>
           </div>
           )
@@ -155,11 +171,12 @@ return (
               }}
               onMouseOut={(e) => {
                 e.currentTarget.classList.remove("image-hover");
-              }}/>
+              }}
+              onClick={() => window.open(elementoR.urls.regular, '_blank')}/>
               <div className='info'>
                  <p>Ubicación: {elementoR.user.location} </p>
                  <p>Cámara: {elementoR.exif.name} </p>
-                 <p>Tags: {/* {elementoR.tags.map((tag, index) => <span key={index}>{tag.title} </span>)} */} </p>
+                 <p>Tags: {/*  {elementoR.tags.map((tag, index) => <span key={index}>{tag.title}  </span>)} */} </p>
               </div>
           </div>
           )
@@ -190,38 +207,3 @@ export default App
 
 
 
-/* import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
-
-export default App
- */

@@ -47,8 +47,17 @@
   transition: all 0.5s ease-in-out;
 }
 .info {
-  width: 85%;
+  width: 90%;
   font-family: 'Roboto Mono', monospace;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+  /* overflow: scroll; */
+}
+.tags {
+  text-decoration: none;
+  background-color: gainsboro;
+  text-overflow: ellipsis;
+  margin: 0 4px 10px 0;
 }
 .image-hover {
   transform: scale(1.1);
