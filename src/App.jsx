@@ -11,14 +11,15 @@ function App() {
   
   const [valor,setValor] = useState('');
   const [resultados,setResultados] = useState([]);
-  /* const [resultadosTags,setResultadosTags] = useState([]); */
+  const [resultadosTags,setResultadosTags] = useState([]); 
   const [resultadosR,setResultadosR] = useState([]);
   const [page,setPage] = useState(1);
   const [variable,setVariable] = useState(true);
 
 
-//const ACCESS_KEY = '65XiRXJUKphgomkJhahmT6rdhCdlm9_ALwKe-3ijO1w'
-const ACCESS_KEY = 'fMk7uhDPagS3fp4IZ4y-6oh5qRzDcExDsFun33mJo-s'
+const ACCESS_KEY = '65XiRXJUKphgomkJhahmT6rdhCdlm9_ALwKe-3ijO1w'
+//const ACCESS_KEY = 'fMk7uhDPagS3fp4IZ4y-6oh5qRzDcExDsFun33mJo-s'
+//const ACCESS_KEY = 'iadbAe7GSBK7bhVU1GUBDF7Y3n0zoSEOpAMYObxFAkM'
   /* const URL1 = `https://api.unsplash.com/photos/random?count=6&client_id=${ACCESS_KEY2}&page=1`
   const URL2 = `https://api.unsplash.com/search/photos?client_id=${ACCESS_KEY2}&query=${valor}&per_page=6&page=${page}` */
 
@@ -33,17 +34,21 @@ const buscarResultados= async ()=>{
   setResultados(data.results);
   console.log(data.results);  
 }
-/* const busquedaTags= async (tag)=>{
-  setVariable(false)
-  let URL= `https://api.unsplash.com/search/photos/?client_id=${ACCESS_KEY}&query=${tag}&per_page=30&`; 
+useEffect(()=>{
+const busquedaTags= async ()=>{
+  let URL= `https://api.unsplash.com/search/photos/?client_id=${ACCESS_KEY}&query=${resultadosTags}&per_page=30&`; 
  
   const response= await fetch(URL);
   const data= await response.json();
    setResultados(data.results); 
-  /* setResultadosTags(data.results); */
-  /* console.log(data.results); 
-  console.log(data.results.tags); 
-}  */
+  
+  
+                                   
+}  
+busquedaTags();
+},[resultadosTags]) 
+
+
 /* funcion para buscar si cambia de pagina */
 useEffect(()=>{
   const buscarResultados= async ()=>{
@@ -135,14 +140,28 @@ return (
               onMouseOut={(e) => {
                 e.currentTarget.classList.remove("image-hover");
               }}
-              onClick={() => window.open(elemento.urls.regular, '_blank')}/>
+              onClick={() => window.open(elemento.urls.regular, '_blank')}
+              />
               <div className='info'>
-                 <p>Ubicación: {elemento.user.location} </p>
-                 <p>Cámara: </p>
+                 <p><strong>Ubicación:</strong> {elemento.user.location ? (
+                    <p className='location-description'>{elemento.user.location}</p>
+                    ) : (
+                  <p className='location-description'>No disponible</p>
+                    )}
+                    </p>
+                 <p><strong>Cámara:</strong> {elemento.camera_description ? (
+                    <p className='camera-description'>{elemento.camera_description}</p>
+                    ) : (
+                    <p className='camera-description'>No disponible</p>
+                    )}
+                 </p>
+                    <p><strong>Tags:</strong></p>               
+                 {elemento.tags && elemento.tags.map((tag, index) => (
+                   <a className='tags' key={index} onClick={() => setResultadosTags(tag.title)}><span>{tag.title}</span></a>
+                        ))} 
+                  
+                  
 
-                 <a className='tags' onClick={()=> busquedaTags(elemento.tags[0].title)} href=''>{elemento.tags[0].title} </a> 
-                 <a className='tags' onClick={()=> busquedaTags(elemento.tags[1].title)} href=''>{elemento.tags[1].title} </a>  
-                 <a className='tags' onClick={()=> busquedaTags(elemento.tags[2].title)} href=''>{elemento.tags[2].title} </a>  
               </div>
           </div>
           )
@@ -174,9 +193,22 @@ return (
               }}
               onClick={() => window.open(elementoR.urls.regular, '_blank')}/>
               <div className='info'>
-                 <p>Ubicación: {elementoR.user.location} </p>
-                 <p>Cámara: {elementoR.exif.name} </p>
-                 <p>Tags: {/*  {elementoR.tags.map((tag, index) => <span key={index}>{tag.title}  </span>)} */} </p>
+                 <p><strong>Ubicación:</strong> {elementoR.user.location ? (
+                    <p className='location-description'>{elementoR.user.location}</p>
+                    ) : (
+                    <p className='location-description'>No disponible</p>
+                    )}
+                    </p>
+                    <p><strong>Cámara:</strong> {elementoR.exif.name ? (
+                    <p className='camera-description'>{elementoR.exif.name}</p>
+                    ) : (
+                    <p className='camera-description'>No disponible</p>
+                    )}
+                 </p>
+
+                 {/* <p>Cámara: {elementoR.exif.name} </p> */}
+                 <p><strong>Tags:</strong></p>
+                 <p>No disponibles</p>
               </div>
           </div>
           )
@@ -207,3 +239,4 @@ export default App
 
 
 
+//142 onClick={() => window.open(elemento.urls.regular, '_blank')}
