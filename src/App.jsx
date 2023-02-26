@@ -18,8 +18,8 @@ function App() {
 
 
 //const ACCESS_KEY = '65XiRXJUKphgomkJhahmT6rdhCdlm9_ALwKe-3ijO1w'
-//const ACCESS_KEY = 'fMk7uhDPagS3fp4IZ4y-6oh5qRzDcExDsFun33mJo-s'
-const ACCESS_KEY = 'iadbAe7GSBK7bhVU1GUBDF7Y3n0zoSEOpAMYObxFAkM'
+const ACCESS_KEY = 'fMk7uhDPagS3fp4IZ4y-6oh5qRzDcExDsFun33mJo-s'
+//const ACCESS_KEY = 'iadbAe7GSBK7bhVU1GUBDF7Y3n0zoSEOpAMYObxFAkM'
   /* const URL1 = `https://api.unsplash.com/photos/random?count=6&client_id=${ACCESS_KEY2}&page=1`
   const URL2 = `https://api.unsplash.com/search/photos?client_id=${ACCESS_KEY2}&query=${valor}&per_page=6&page=${page}` */
 
@@ -152,7 +152,22 @@ return (
               onMouseOut={(e) => {
                 e.currentTarget.classList.remove("image-hover");
               }} 
-              onClick={() => window.open(elemento.urls.regular, '_blank')}
+              //onClick={() => window.open(elemento.urls.regular, '_blank')}
+
+                onClick={() => {
+                const nuevaPestana = window.open();
+                nuevaPestana.document.body.innerHTML = `
+                  <img src="${elemento.urls.regular}" alt="Imagen no disponible" />
+                  <p><strong>Para descargar la imagen, haga click con el botón derecho sobre la imagen y seleccione "Guardar imagen como...".</strong> </p>
+                  <button className="boton--busqueda" id="volver-btn">Volver a la búsqueda</button>
+                `;
+                 const volverBtn = nuevaPestana.document.getElementById('volver-btn');
+                 volverBtn.addEventListener('click', () => {
+                 nuevaPestana.close();
+                 window.location.href = 'http://localhost:5173/Buscador-de-Unsplash-con-Vite/http://localhost:5173/Buscador-de-Unsplash-con-Vite/'; // redirige a la página de búsqueda
+              });
+            }}
+
               />
               </motion.div>
 
@@ -165,9 +180,9 @@ return (
                     )}
                     </p>
                  <p><strong>Cámara</strong>:{elemento.camera_description ? (
-                    <p className='camera-description'>{elemento.camera_description}</p>
+                    <p>{elemento.camera_description}</p>
                     ) : (
-                    <p className='camera-description'>No disponible</p>
+                    <p>No disponible</p>
                     )}
                  </p>
                     <p><strong>Tags</strong>:</p>               
@@ -225,25 +240,43 @@ return (
                   onMouseOut={(e) => {
                   e.currentTarget.classList.remove("image-hover");
                   }}   
-                  onClick={() => window.open(elementoR.urls.regular, '_blank')}/>
+                  //onClick={() => window.open(elementoR.urls.regular, '_blank')}
+
+                  onClick={() => {
+                    const nuevaPestana = window.open();
+                    nuevaPestana.document.body.innerHTML = `
+                      <img src="${elementoR.urls.regular}" alt="Imagen no disponible" />
+                      <p><strong>Para descargar la imagen, haga click con el botón derecho sobre la imagen y seleccione "Guardar imagen como..."</strong> .</p>
+                      <button className="boton--busqueda" id="volver-btn">Volver a la búsqueda</button>
+                    `;
+                     const volverBtn = nuevaPestana.document.getElementById('volver-btn');
+                     volverBtn.addEventListener('click', () => {
+                     nuevaPestana.close();
+                     window.location.href = 'http://localhost:5173/Buscador-de-Unsplash-con-Vite/http://localhost:5173/Buscador-de-Unsplash-con-Vite/'; // redirige a la página de búsqueda
+                  });
+                }}
+                  
+                  />
 
                   </motion.div>
 
+
+
               <div className='info'>
                  <p><strong>Ubicación</strong>: {elementoR.user.location ? (
-                    <p className='location-description'>{elementoR.user.location}</p>
+                    <p>{elementoR.user.location}</p>
                     ) : (
-                    <p className='location-description'>No disponible</p>
+                    <p>No disponible</p>
                     )}
                     </p>
                     <p><strong>Cámara</strong>: {elementoR.exif.name ? (
-                    <p className='camera-description'>{elementoR.exif.name}</p>
+                    <p>{elementoR.exif.name}</p>
                     ) : (
-                    <p className='camera-description'>No disponible</p>
+                    <p>No disponible</p>
                     )}
                  </p>
 
-                 {/* <p>Cámara: {elementoR.exif.name} </p> */}
+                
                  <p><strong>Tags</strong>:</p>
                  <p>No disponibles</p>
               </div>

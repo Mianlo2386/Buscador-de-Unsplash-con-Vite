@@ -101,3 +101,32 @@
 .image-hover {
   transform: scale(1.1);
 }
+.boton--busqueda {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton--busqueda:hover {
+  background-color: #0062cc;
+}
+.boton--descargar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton--descargar:hover {
+  background-color: #218838;
+}
+
