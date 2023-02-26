@@ -41,13 +41,12 @@ const busquedaTags= async ()=>{
   const response= await fetch(URL);
   const data= await response.json();
    setResultados(data.results); 
-  
+   
   
                                    
 }  
 busquedaTags();
 },[resultadosTags]) 
-
 
 /* funcion para buscar si cambia de pagina */
 useEffect(()=>{
@@ -152,7 +151,7 @@ return (
               onMouseOut={(e) => {
                 e.currentTarget.classList.remove("image-hover");
               }} 
-              //onClick={() => window.open(elemento.urls.regular, '_blank')}
+              
 
                 onClick={() => {
                 const nuevaPestana = window.open();
@@ -240,7 +239,7 @@ return (
                   onMouseOut={(e) => {
                   e.currentTarget.classList.remove("image-hover");
                   }}   
-                  //onClick={() => window.open(elementoR.urls.regular, '_blank')}
+                  
 
                   onClick={() => {
                     const nuevaPestana = window.open();
@@ -311,4 +310,3 @@ export default App
 
 
 
-//142 onClick={() => window.open(elemento.urls.regular, '_blank')}

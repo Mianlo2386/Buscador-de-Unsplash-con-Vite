@@ -93,6 +93,7 @@
   border: 1px solid grey;
   border-radius: 5px;
   align-items: center;
+  transition: background-color 0.3s ease;
 }
 .tags span:hover {
   background-color: gray;
