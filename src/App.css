@@ -26,6 +26,10 @@
   cursor: pointer;
   font-size: 110%;
 } 
+.cajaDeBusqueda .cajaDeBusqueda--btn:hover {
+  font-size: 130%;
+  color: black;
+}
 .contenido {
   width: 100%;
   display: flex;
